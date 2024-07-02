@@ -6,3 +6,4 @@ Dataset 4: [MentalHealthConversations](https://huggingface.co/datasets/Kiran2004
 Dataset 5: [Synthetic Therapy Conversations](https://huggingface.co/datasets/Mr-Bhaskar/Synthetic_Therapy_Conversations)  
 Dataset 6: [therapy-bot-data-10k](https://huggingface.co/datasets/Aarya4536/therapy-bot-data-10k)  
 Dataset 7: [Therapy-Alpaca](https://huggingface.co/datasets/adarshxs/Therapy-Alpaca)
+Dataset 8: [merged_mental_health_dataset](https://huggingface.co/datasets/mshojaei77/merged_mental_health_dataset/viewer/default/train?p=8678&row=867804)

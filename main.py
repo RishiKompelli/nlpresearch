@@ -32,16 +32,25 @@ df5 = df5.loc[:, ~df5.columns.str.contains('^Unnamed')]
 # dataset 6
 df6 = pd.read_parquet("hf://datasets/Aarya4536/therapy-bot-data-10k/data/train-00000-of-00001.parquet")
 df6 = df6.drop(['response_k', 'text'], axis=1)
-df5.rename(columns={'question': 'Input', 'response_j': 'Output'}, inplace=True)
+df6.rename(columns={'question': 'Input', 'response_j': 'Output'}, inplace=True)
 
 # dataset 7
-ds = load_dataset("adarshxs/Therapy-Alpaca")
-df7 = pd.DataFrame(ds['train'])
+ds7 = load_dataset("adarshxs/Therapy-Alpaca")
+df7 = pd.DataFrame(ds7['train'])
 df7 = df7.drop('instruction', axis=1)
 df7.rename(columns={'input': 'Input', 'output': 'Output'}, inplace=True)
 
-df = pd.concat([df1, df2, df3, df4, df5, df6, df7], ignore_index=True)
-df = df.drop(['question', 'response_j'], axis=1)
+# dataset 8
+df8 = pd.read_parquet("hf://datasets/mshojaei77/merged_mental_health_dataset/data/train-00000-of-00001.parquet")
+df8.rename(columns={'Context': 'Input', 'Response': 'Output'}, inplace=True)
+df8 = df8.loc[:, ~df3.columns.str.contains('^Unnamed')]
+
+df = pd.concat([df1, df2, df3, df4, df5, df6, df7, df8], ignore_index=True)
+print("Columns before dropping:", df.columns.tolist())
+columns_to_drop = ['question', 'response_j']
+for column in columns_to_drop:
+    if column in df.columns:
+        df = df.drop(column, axis=1)
 df = df.drop_duplicates()
-df = df.dropna(subset = ['Input', 'Output'])
+df = df.dropna(subset=['Input', 'Output'])
 print(df)
