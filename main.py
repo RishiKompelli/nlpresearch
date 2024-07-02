@@ -53,4 +53,8 @@ for column in columns_to_drop:
         df = df.drop(column, axis=1)
 df = df.drop_duplicates()
 df = df.dropna(subset=['Input', 'Output'])
+df['Input'] = df['Input'].str.replace("Alex", '', regex=False)
+df['Input'] = df['Input'].str.replace(",", '', regex=False)
+df['Output'] = df['Output'].str.replace("Charlie", '', regex=False)
+df['Output'] = df['Output'].str.replace(", ", '', regex=False)
 print(df)
