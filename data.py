@@ -8,44 +8,43 @@ nlp = spacy.load("en_core_web_sm")
 ds = load_dataset("AnikaBasu/MentalHealthDataset")
 df1 = pd.DataFrame(ds['train'])
 df1 = df1.drop(['text', 'input'], axis=1)
-df1.rename(columns={'instruction': 'Input', 'output': 'Output'}, inplace=True)
-df1 = df1[['Input', 'Output']]
+df1.rename(columns={'instruction': 'input', 'output': 'output'}, inplace=True)
+df1 = df1[['input', 'output']]
 print("loaded dataset 1")
 # dataset 2
 df2 = pd.read_csv("hf://datasets/Riyazmk/mentalhealth/fullMentalHealth.csv")
-df2.rename(columns={'Questions': 'Input', 'Answers': 'Output'}, inplace=True)
+df2.rename(columns={'Questions': 'input', 'Answers': 'output'}, inplace=True)
 df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]
 print("loaded dataset 2")
 # dataset 3
 df3 = pd.read_csv(r"C:\Users\rishi\OneDrive\Desktop\nlp research\nlpresearch\data\train.csv")
-df3.rename(columns={'Context': 'Input', 'Response': 'Output'}, inplace=True)
+df3.rename(columns={'Context': 'input', 'Response': 'output'}, inplace=True)
 df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]
 print("loaded dataset 3")
 # dataset 4
 df4 = pd.read_csv("hf://datasets/Kiran2004/MentalHealthConversations/Kiran-deppression.csv")
-df4.rename(columns={'Questions': 'Input', 'Answers': 'Output'}, inplace=True)
+df4.rename(columns={'Questions': 'input', 'Answers': 'output'}, inplace=True)
 df4 = df4.loc[:, ~df4.columns.str.contains('^Unnamed')]
 print("loaded dataset 4")
 # dataset 5
 splits = {'train': 'train.csv', 'validation': 'validation.csv', 'test': 'test.csv'}
 df5 = pd.read_csv("hf://datasets/Mr-Bhaskar/Synthetic_Therapy_Conversations/" + splits["train"])
-df5.rename(columns={'human': 'Input', 'ai': 'Output'}, inplace=True)
+df5.rename(columns={'human': 'input', 'ai': 'output'}, inplace=True)
 df5 = df5.loc[:, ~df5.columns.str.contains('^Unnamed')]
 print("loaded dataset 5")
 # dataset 6
 df6 = pd.read_parquet("hf://datasets/Aarya4536/therapy-bot-data-10k/data/train-00000-of-00001.parquet")
 df6 = df6.drop(['response_k', 'text'], axis=1)
-df6.rename(columns={'question': 'Input', 'response_j': 'Output'}, inplace=True)
+df6.rename(columns={'question': 'input', 'response_j': 'output'}, inplace=True)
 print("loaded dataset 6")
 # dataset 7
 ds7 = load_dataset("adarshxs/Therapy-Alpaca")
 df7 = pd.DataFrame(ds7['train'])
 df7 = df7.drop('instruction', axis=1)
-df7.rename(columns={'input': 'Input', 'output': 'Output'}, inplace=True)
 print("loaded dataset 7")
 # dataset 8
 df8 = pd.read_parquet("hf://datasets/mshojaei77/merged_mental_health_dataset/data/train-00000-of-00001.parquet")
-df8.rename(columns={'Context': 'Input', 'Response': 'Output'}, inplace=True)
+df8.rename(columns={'Context': 'input', 'Response': 'output'}, inplace=True)
 df8 = df8.loc[:, ~df3.columns.str.contains('^Unnamed')]
 print("loaded dataset 8")
 
@@ -58,7 +57,7 @@ for column in columns_to_drop:
     if column in df.columns:
         df = df.drop(column, axis=1)
 df = df.drop_duplicates()
-df = df.dropna(subset=['Input', 'Output'])
+df = df.dropna(subset=['input', 'output'])
 
 # remove names
 df['Input'] = df['Input'].str.replace("Alex", '', regex=False)
