@@ -60,8 +60,8 @@ df = df.drop_duplicates()
 df = df.dropna(subset=['input', 'output'])
 
 # remove names
-df['Input'] = df['Input'].str.replace("Alex", '', regex=False)
-df['Output'] = df['Output'].str.replace("Charlie", '', regex=False)
+df['input'] = df['input'].str.replace("Alex", '', regex=False)
+df['output'] = df['output'].str.replace("Charlie", '', regex=False)
 
 print(df)
 df.to_csv("data.csv", index=False)
