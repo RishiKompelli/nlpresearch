@@ -63,5 +63,5 @@ df = df.dropna(subset=['input', 'output'])
 df['input'] = df['input'].str.replace("Alex", '', regex=False)
 df['output'] = df['output'].str.replace("Charlie", '', regex=False)
 
-print(df)
 df.to_csv("data.csv", index=False)
+
