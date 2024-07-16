@@ -1,6 +1,7 @@
 import pandas as pd
 from datasets import load_dataset
 import spacy
+import re
 nlp = spacy.load("en_core_web_sm")
 
 
@@ -17,7 +18,7 @@ df2.rename(columns={'Questions': 'input', 'Answers': 'output'}, inplace=True)
 df2 = df2.loc[:, ~df2.columns.str.contains('^Unnamed')]
 print("loaded dataset 2")
 # dataset 3
-df3 = pd.read_csv(r"C:\Users\rishi\OneDrive\Desktop\nlp research\nlpresearch\data\train.csv")
+df3 = pd.read_csv(r"C:\Users\rishi\OneDrive\Desktop\nlp research\dataset\data\train.csv")
 df3.rename(columns={'Context': 'input', 'Response': 'output'}, inplace=True)
 df3 = df3.loc[:, ~df3.columns.str.contains('^Unnamed')]
 print("loaded dataset 3")
@@ -63,5 +64,11 @@ df = df.dropna(subset=['input', 'output'])
 df['input'] = df['input'].str.replace("Alex", '', regex=False)
 df['output'] = df['output'].str.replace("Charlie", '', regex=False)
 
-df.to_csv("data.csv", index=False)
+def fix_newlines(df, columns):
+    for col in columns:
+        df[col] = df[col].apply(lambda x: re.sub(r'\n', ' ', x) if isinstance(x, str) else x)
+    return df
 
+df = fix_newlines(df, ['input', 'output'])
+
+df.to_csv("data.csv", index=False)
